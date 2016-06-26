@@ -1,0 +1,78 @@
+\section{Som e Acústica}
+
+Som é uma coisinha bonitinha.
+
+Acústica é a ciência que estuda a som. É ciência que estuda a sua origem e propagação, seja ela em espaços abertos ou espaços fechados \cite{kuttruff2007acoustics}.
+
+\subsection{Equação da Onda}
+
+No estudo de acústica, a principal equação é a \emph{Equação da Onda}. Considerando um meio dispersante, a pressão do meio é governada pela seguinte equação diferencial:
+
+\begin{eqnarray}
+\frac{\partial^2 \rho(u, t)}{\partial t^2} &=& c^2 \nabla^2 \rho(u, t)\label{acousticequation} \\
+&\text{onde}&\nonumber\\
+t \in \mathbb{R} &\Rightarrow& \text{Tempo em segundos(s)} \nonumber\\
+u \in \mathbb{R}^3 &\Rightarrow& \text{Posição em metros(m)} \nonumber\\
+c \in \mathbb{R} &\Rightarrow& \text{Velocidade de Propagação (m/s)} \nonumber\\
+\rho(u, t) \in \mathbb{R} &\Rightarrow& \text{Pressão acústica (Pa)} \nonumber
+\end{eqnarray}
+
+Na equação \eqref{acousticequation}, o operador $\nabla^2$ corresponde ao operador Laplaciano Espacial. Isto é:
+
+\begin{equation}
+	\nabla^2 \rho(u, t) = \Delta \rho(u, t) = \frac{\partial^2 \rho(u, t)}{\partial x^2} + \frac{\partial^2 \rho(u, t)}{\partial y^2} + \frac{\partial^2 \rho(u, t)}{\partial z^2}
+\end{equation}
+
+A equação \eqref{acousticequation} é uma equação diferencial parcial linear hiperbólica de segunda ordem. Ela é chamada de equação governante pois, determinadas as condições inicias e as condições de contorno, os demais resultados são obtidos como consequência dela.
+
+\begin{figure}[ht]
+	\centering
+	\input{mathematicalbackground/wave_field.tikz}
+	\caption[Pressão acústica gerada uma fonte pontual]{Pressão acústica gerada por uma fonte pontual no centro do meio. A fonte determina as condições do contorno da equação e a pressão acústica nos demais pontos é governada pela Equação da Onda \eqref{acousticequation}}\label{wavefield}
+\end{figure}
+
+\subsubsection{Fontes Sonoras e Ambientes Acústicos}
+
+Em acústica, existem duas entidades essenciais: a \emph{fonte sonora}, responsável por gerar o som, e o \emph{ambiente}, responsável por transmití-lo. Matemáticamente essas entidades definem exatamente as condições iniciais e as condições de contorno da Equação da Onda.
+
+Uma equação diferencial é definida dentro um domínio, usualmente denotado por $\Omega$. O domínio pode ser um ambiente fechado (sala de estar ou um auditório) ou um espaço aberto (campo ou um deserto). As condições de contorno são equações que delimitam o comportamento da pressão acústica dentro do domínio $\Omega$. Os dois tipos mais comuns de condições de contorno são as condições de contorno de Dirichlet e as condições de contorno de Neumann.
+
+As condições de contorno de Dirichlet são condições de contorno da forma:
+
+\begin{equation}
+	\rho(x, t) = f(x, t)
+\end{equation}
+
+Essas condições de contorno forçam que o valor de determinados pontos obedeça alguma função já conhecida. Em acústica, as condições de contorno de Dirichlet normalmente são utilizadas para definir fontes sonoras. Se uma determinada fonte sonora localizada no ponto $x_{f}$ reproduz um som $s_f(t)$, podemos adicionar a condição de contorno $\rho(x_{f}, t) = s_f(t)$.
+
+As condições de contorno de Neumann são condições de contorno da forma:
+
+\begin{eqnarray}
+\frac{\partial\rho(x, t)}{\partial n} &=& f(x, t)\\
+&\text{onde}& \nonumber \\
+n \in \mathbb{R}^3 &\Rightarrow& \text{Vetor normal}\nonumber 
+\end{eqnarray}
+
+Essas condições de contorno forçam que o valor da derivada da pressão em determinados pontos obedeça alguma função já conhecida. As condições de contorno de Dirichlet são utilizadas, por exemplo, para determinar o comportamento na interface entre diferentes meios. Se um ponto $x_{b}$ encontra-se na borda de uma superfície rígida fixa de normal $n_b$, podemos adicionar a condição de contorno $\nicefrac{\partial\rho(x, t)}{\partial n_b} = 0$.
+
+\subsection{Radiação acústica e a Equação de Helmholtz}
+
+\begin{figure}[ht]
+	\centering
+	\input{mathematicalbackground/helmholtz_abs.tikz}
+	\caption[Radiação acústica gerada uma fonte pontual]{Radiação acústica gerada por uma fonte pontual no centro do meio. A fonte determina as condições do contorno da equação e a radiação acústica nos demais pontos é governada pela Equação de Helmholtz}\label{helmholtz}
+\end{figure}
+
+\begin{eqnarray}
+	\nabla^2 A(u) + k^2A(u) &=& 0\label{helmholtzequation}\\
+&\text{onde}&\nonumber\\
+k \in \mathbb{R} &\Rightarrow& \text{ Número de Onda (1/m)} \nonumber\\
+u \in \mathbb{R}^3 &\Rightarrow& \text{ Posição em metros(m)} \nonumber\\
+A(u) \in \mathbb{C} &\Rightarrow& \text{ Amplitude em metros(m)} \nonumber
+\end{eqnarray}
+
+\subsubsection{Aproximação em Far-Field e Expansão Multi-Polar}
+
+
+
+conta pra carai

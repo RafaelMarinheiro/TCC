@@ -4,7 +4,7 @@
         	"path": ".",
 	        "file_exclude_patterns":[
 	        	//Latex
-	        	// "*.aux",
+	        	"*.aux",
 	        	"*.fls",
 	        	"*.bbl",
 	        	"*.blg",
@@ -13,9 +13,16 @@
 	        	"*.lot",
 	        	"*.synctex.gz",
 	        	"*.toc",
-	        	"*.pdf",
+	        	// "*.pdf",
 	        	"*.fdb_latexmk",
 	        ],
 	    }
-    ]
+    ],
+
+    "settings" : {
+        "TEXroot": "doc/main.tex",
+        "tex_file_exts": [".tex", ".tikz", ".bib"],
+        "builder_settings": {
+        }
+    }
 }
