@@ -48,5 +48,5 @@ def plot(f, vmin, vmax, name):
 	plt.close(fig)
 
 plot(hre, -1, 1, "helmholtz_re")
-plot(habs, 0, 1, "helmholtz_abs")
+plot(habs, -1, 1, "helmholtz_abs")
 

@@ -9,6 +9,8 @@ def average(lista):
 def spl(amp):
 	# return amp
 	return 20*math.log10(amp/0.000020)
+	# return amp
+	# return 10*math.log10(amp)
 
 def main(dir):
 	data = {}
@@ -81,7 +83,7 @@ def main(dir):
 
 		plotfun(fbemD, label='fbem')
 		# plotfun([avF for d in fbemD], label='av_fbem')
-		plt.ylim(0, 300)
+		# plt.ylim(0, 300)
 		gpuD = [abs(transfer) for transfer in data[tdata]['gpu']]
 		avG = average(gpuD)
 		gpuD = [spl(g) for g in gpuD]
@@ -94,7 +96,8 @@ def main(dir):
 		print "ERROR: %f %f" % (error, avG/avF)
 		# toplot = [abs(fbemD[i]/avF-gpuD[i]/avG) for i in range(0, len(fbemD))]
 		toplot = [abs(gpuD[i] - fbemD[i]) for i in range(0, len(fbemD))]
-		averageError.append(average(toplot))
+		toerr = [100*abs(gpuD[i] - fbemD[i])/fbemD[i] for i in range(0, len(fbemD))]
+		averageError.append(average(toerr))
 		plotfun(toplot, label='error')
 
 		plt.ylabel("Sound Pressure Level - SPL (dB)")
@@ -108,9 +111,9 @@ def main(dir):
 	print len(freqs)
 	print len(averageError)
 	plotfun(freqs, averageError, label='error')
-	plt.ylim(0, 50)
+	plt.ylim(0, 100)
 	plt.xlabel("Frequency (Hz)")
-	plt.ylabel("Error per mode - SPL (dB)")
+	plt.ylabel("Error per mode - %")
 	plt.legend(loc='upper right')
 	daimgname = dir+"/plots/%s_error.png"%(dir[:-1])
 	plt.savefig(daimgname)

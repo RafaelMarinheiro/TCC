@@ -1,6 +1,11 @@
 \section{Som e Acústica}
 
 Som é uma coisinha bonitinha.
+Som é uma coisinha bonitinha.
+Som é uma coisinha bonitinha.
+Som é uma coisinha bonitinha.
+Som é uma coisinha bonitinha.
+Som é uma coisinha bonitinha.
 
 Acústica é a ciência que estuda a som. É ciência que estuda a sua origem e propagação, seja ela em espaços abertos ou espaços fechados \cite{kuttruff2007acoustics}.
 
@@ -28,7 +33,7 @@ A equação \eqref{acousticequation} é uma equação diferencial parcial linear
 \begin{figure}[ht]
 	\centering
 	\input{mathematicalbackground/wave_field.tikz}
-	\caption[Pressão acústica gerada uma fonte pontual]{Pressão acústica gerada por uma fonte pontual no centro do meio. A fonte determina as condições do contorno da equação e a pressão acústica nos demais pontos é governada pela Equação da Onda \eqref{acousticequation}}\label{wavefield}
+	\caption[Pressão acústica gerada uma fonte pontual]{Pressão acústica gerada por uma fonte pontual no centro do meio. A fonte e o ambiente determinam as condições de contorno e a pressão acústica nos demais pontos é governada pela Equação da Onda \eqref{acousticequation}}\label{wavefield}
 \end{figure}
 
 \subsubsection{Fontes Sonoras e Ambientes Acústicos}
@@ -40,39 +45,19 @@ Uma equação diferencial é definida dentro um domínio, usualmente denotado po
 As condições de contorno de Dirichlet são condições de contorno da forma:
 
 \begin{equation}
-	\rho(x, t) = f(x, t)
+	\rho(u, t) = f(u, t)
 \end{equation}
 
-Essas condições de contorno forçam que o valor de determinados pontos obedeça alguma função já conhecida. Em acústica, as condições de contorno de Dirichlet normalmente são utilizadas para definir fontes sonoras. Se uma determinada fonte sonora localizada no ponto $x_{f}$ reproduz um som $s_f(t)$, podemos adicionar a condição de contorno $\rho(x_{f}, t) = s_f(t)$.
+Essas condições de contorno forçam que o valor de determinados pontos obedeça alguma função já conhecida. Em acústica, as condições de contorno de Dirichlet normalmente são utilizadas para definir fontes sonoras. Se uma determinada fonte sonora localizada no ponto $u_{f}$ reproduz um som $s_f(t)$, podemos adicionar a condição de contorno $\rho(u_{f}, t) = s_f(t)$.
 
 As condições de contorno de Neumann são condições de contorno da forma:
 
 \begin{eqnarray}
-\frac{\partial\rho(x, t)}{\partial n} &=& f(x, t)\\
+\frac{\partial\rho(u, t)}{\partial n} &=& f(u, t)\\
 &\text{onde}& \nonumber \\
 n \in \mathbb{R}^3 &\Rightarrow& \text{Vetor normal}\nonumber 
 \end{eqnarray}
 
-Essas condições de contorno forçam que o valor da derivada da pressão em determinados pontos obedeça alguma função já conhecida. As condições de contorno de Dirichlet são utilizadas, por exemplo, para determinar o comportamento na interface entre diferentes meios. Se um ponto $x_{b}$ encontra-se na borda de uma superfície rígida fixa de normal $n_b$, podemos adicionar a condição de contorno $\nicefrac{\partial\rho(x, t)}{\partial n_b} = 0$.
+Essas condições de contorno forçam que o valor da derivada da pressão em determinados pontos obedeça alguma função já conhecida. As condições de contorno de Dirichlet são utilizadas, por exemplo, para determinar o comportamento na interface entre diferentes meios. Se um ponto $u_{b}$ encontra-se na borda de uma superfície rígida fixa de normal $n_b$, podemos adicionar a condição de contorno $\nicefrac{\partial\rho(u_b, t)}{\partial n_b} = 0$.
 
-\subsection{Radiação acústica e a Equação de Helmholtz}
-
-\begin{figure}[ht]
-	\centering
-	\input{mathematicalbackground/helmholtz_abs.tikz}
-	\caption[Radiação acústica gerada uma fonte pontual]{Radiação acústica gerada por uma fonte pontual no centro do meio. A fonte determina as condições do contorno da equação e a radiação acústica nos demais pontos é governada pela Equação de Helmholtz}\label{helmholtz}
-\end{figure}
-
-\begin{eqnarray}
-	\nabla^2 A(u) + k^2A(u) &=& 0\label{helmholtzequation}\\
-&\text{onde}&\nonumber\\
-k \in \mathbb{R} &\Rightarrow& \text{ Número de Onda (1/m)} \nonumber\\
-u \in \mathbb{R}^3 &\Rightarrow& \text{ Posição em metros(m)} \nonumber\\
-A(u) \in \mathbb{C} &\Rightarrow& \text{ Amplitude em metros(m)} \nonumber
-\end{eqnarray}
-
-\subsubsection{Aproximação em Far-Field e Expansão Multi-Polar}
-
-
-
-conta pra carai
+\input{mathematicalbackground/acoustic_transfer}

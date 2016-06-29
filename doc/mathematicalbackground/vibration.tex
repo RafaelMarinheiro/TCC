@@ -152,26 +152,64 @@ u \in \mathbb{R}^{n} &\Rightarrow& \text{Vetor de deslocamento} \nonumber\\
 f_{ext} \in \mathbb{R}^{n} &\Rightarrow& \text{Vetor de forças externas} \nonumber\\
 M \in \mathbb{R}^{n\times n} &\Rightarrow& \text{Matriz de Massas} \nonumber\\
 K \in \mathbb{R}^{n\times n} &\Rightarrow& \text{Matriz de Rigidez} \nonumber\\
-C \in \mathbb{R}^{n\times n} &\Rightarrow& \text{Matriz de Rigidez} \nonumber
+C \in \mathbb{R}^{n\times n} &\Rightarrow& \text{Matriz de Amortecimento} \nonumber
 \end{eqnarray}
 
-Aproximação de Rayleigh:
-
+Para objetos complexos, as matrizes são calculadas utilizando o Método dos Elementos Finitos \cite{hughes2012finite}. O método consiste em subdividir o objeto em pequenas partes, chamados de Elemento. As molas do sistema são utilizadas para unir os elementos que estão em contato. A massa dos Elementos e as constantes da mola são normalmente calculadas a partir das propriedades do material do objeto, como densidade ($\nicefrac{kg}{m^3}$), Módulo de Young ($Pa$) e Razão de Poisson \cite{shabana2012theory}. A Matriz de Amortecimento, no entanto, geralmente é calculada utilizando a aproximação de Rayleigh:
 \begin{equation}
 C = \alpha M + \beta{K}
 \label{rayleighdamping}
 \end{equation}
 
+onde $\alpha$ e $\beta$ são constantes de dependem do material.
 
 \subsection{Análise Modal}
 
-Considere um sistema elastodinâmico. A sua Matriz de Massas $M$ é uma matriz diagonal positiva definida\footnote{Uma matriz $M \in \mathbb{R}^{n\times n}$ é dita positiva definida se, e somente se, $\forall v \in \mathbb{R}^n \Rightarrow v^\intercal M v > 0$. Uma definição equivalente é a de que todos os autovalores de $M$ são positivos.}. A sua matriz $K$ é a soma de matriz simétricas semi-positivas definidas, portanto ela também é uma matriz simétrica semi-positiva definida\footnote{Uma matriz $M \in \mathbb{R}^{n\times n}$ é dita semi-positiva definida se, e somente se, $\forall v \in \mathbb{R}^n \Rightarrow v^\intercal M v \ge 0$. Uma definição equivalente é a de que todos os autovalores de $M$ são não-negativos.}. Por tal razão, o problema dos autovalores generalizados está bem definido para estas matrizes\cite{parlett1980symmetric}. Isso significa é que possível encontrar uma base formada por vetores $v_i$, tais que:
+Considere um sistema elastodinâmico. A sua Matriz de Massas $M$ é uma matriz diagonal positiva definida\footnote{Uma matriz $M \in \mathbb{R}^{n\times n}$ é dita positiva definida se, e somente se, $\forall v \in \mathbb{R}^n \Rightarrow v^\intercal M v > 0$. Uma definição equivalente é a de que todos os autovalores de $M$ são positivos.}. A sua matriz $K$ é a soma de matriz simétricas semi-positivas definidas, portanto ela também é uma matriz simétrica semi-positiva definida\footnote{Uma matriz $M \in \mathbb{R}^{n\times n}$ é dita semi-positiva definida se, e somente se, $\forall v \in \mathbb{R}^n \Rightarrow v^\intercal M v \ge 0$. Uma definição equivalente é a de que todos os autovalores de $M$ são não-negativos.}. Por tal razão, o problema dos autovalores generalizados está bem definido para estas matrizes \cite{parlett1980symmetric}. Isso significa é que possível encontrar uma base formada por vetores $v_i$, tais que:
 
 \begin{equation}
-	Kv_i = \lambda_i M v_i
+	Kv_i = \lambda_i M v_i \label{eq:mode_scalar}
 \end{equation}
 
-Para cada par $(\lambda_i, v_i)$, o autovalor $\lambda_i = \omega_i^2$ está relacionado à frequência. De fato, dizemos que $\omega_i$ é a \emph{Frequência Natural de Vibração}. Já o autovetor correspondente é o \emph{Modo Natural de Vibração}. Podemos escrever essa equação também em sua forma matricial:
+Para cada par $(\lambda_i, v_i)$, o autovalor $\lambda_i = \omega_i^2$ está relacionado à frequência. De fato, dizemos que $\omega_i = 2\pi f_i$ é a \emph{Frequência Natural de Vibração}. Já o autovetor correspondente é o \emph{Modo Natural de Vibração}. É possível visualizar alguns modos de vibração na \figref{fig:sample_modes}.
+
+\begin{figure}[ht]
+\begin{subfigure}{0.32\textwidth}
+	\centering
+	\includegraphics[height=0.15\textheight]{mathematicalbackground/modes/plate_4.png}
+	\caption{Prato - Modo 4 - 2.6KHz}\label{fig:plates_4}
+\end{subfigure}%
+\begin{subfigure}{0.32\textwidth}
+	\centering
+	\includegraphics[height=0.15\textheight]{mathematicalbackground/modes/plate_9.png}
+	\caption{Prato - Modo 9 - 4.9KHz}\label{fig:plates_9}
+\end{subfigure}%
+\begin{subfigure}{0.32\textwidth}
+	\centering
+	\includegraphics[height=0.15\textheight]{mathematicalbackground/modes/plate_48.png}
+	\caption{Prato - Modo 48 - 16.6KHz}\label{fig:plates_48}
+\end{subfigure}%
+
+\begin{subfigure}{0.32\textwidth}
+	\centering
+	\includegraphics[height=0.2\textheight]{mathematicalbackground/modes/glass_3.png}
+	\caption{Taça - Modo 3 - 1.9KHz}\label{fig:glass_3}
+\end{subfigure}%
+\begin{subfigure}{0.32\textwidth}
+	\centering
+	\includegraphics[height=0.2\textheight]{mathematicalbackground/modes/glass_15.png}
+	\caption{Taça - Modo 15 - 9.3KHz}\label{fig:glass_15}
+\end{subfigure}%
+\begin{subfigure}{0.32\textwidth}
+	\centering
+	\includegraphics[height=0.2\textheight]{mathematicalbackground/modes/glass_33.png}
+	\caption{Taça - Modo 33 - 16KHz}\label{fig:glass_33}
+\end{subfigure}%
+\caption[Modos de Vibração de objetos]{Modos de Vibração de objetos. Ao topo: Modos de vibração de um prato de cerâmica. Abaixo: Modos de vibração de uma taça de vidro. Fonte: \cite{langlois2014eigenmode}}
+\label{fig:sample_modes}
+\end{figure}
+
+Podemos escrever a equação \eqref{eq:mode_scalar} também em sua forma matricial:
 
 \begin{equation}
 	KV = \Lambda M V
@@ -219,6 +257,8 @@ onde $k_1$, $k_2$ e $k_3$ são constantes (ver \figref{wave_mode}). Vale a pena 
 	\input{mathematicalbackground/wave_mode.tikz}
 	\caption[Gráfico da solução da equação $\ddot{q}(t) + (\alpha + \beta\omega_i^2)\dot{q}(t) + \omega^2q(t) = f(t)$]{Gráfico da solução geral da equação $\ddot{q}(t) + (\alpha + \beta\omega_i^2)\dot{q}(t) + \omega^2q(t) = f(t)$ considerando $f(t) = \delta(t, 0)$. A frequência de $q(t)$ é próxima à frequência natural $\omega_i$.}\label{wave_mode}
 \end{figure}
+
+A possibilidade de decomposição em sistemas lineares independentes mostra que a vibração de um objeto pode ser expressa como a combinação linear de seus modos de vibração (ver \figref{plate_modes}). Veremos adiante como essa propriedade pode ser explorada para acelerar a simulação.
 
 \begin{figure}[ht]
 	\centering

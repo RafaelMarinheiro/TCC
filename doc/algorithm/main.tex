@@ -1,7 +1,20 @@
 %!TEX root = ../main.tex
 \chapter{Algoritmo e Implementação}
 
-\section{Visão Geral}
+\begin{figure}[ht]
+\begin{subfigure}{\textwidth}
+	\centering
+	\input{algorithm/pipeline_offline.tikz}
+	\caption[Pipeline off]{Sistema elastodinâmico unidimensional. Cada nó tem massa $m_i$ e cada mola tem uma constante $k_{i,j}$}\label{pipeline_offline}
+\end{subfigure}
+\begin{subfigure}{\textwidth}
+	\centering
+	\input{algorithm/pipeline_online.tikz}
+	\caption[Pipeline on]{Sistema elastodinâmico unidimensional. Cada nó tem massa $m_i$ e cada mola tem uma constante $k_{i,j}$}\label{pipeline_online}
+\end{subfigure}
+\caption[Overview do pipeline]{\figref{pipeline_offline} plots of....}
+\label{fig:pipeline_overview}
+\end{figure}
 
 \section {Decomposição Tetragonal}
 

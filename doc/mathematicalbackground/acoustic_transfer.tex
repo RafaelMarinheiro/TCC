@@ -1,0 +1,73 @@
+\subsection{Radiação acústica e a Equação de Helmholtz}
+
+Dadas as condições iniciais e as condições de contorno, a equação da onda nos dá o valor exato da pressão acústica em função da posição e do tempo. A dependência com o tempo, no entanto, nos força a resolver a equação da onda durante a simulação. Esse processo tem um alto custo computacional, portanto é preferível encontrar uma outra solução para esse problema.
+
+
+O caso mais comum de síntese acústica consiste no problema das fontes sonoras: dada uma fonte sonora na posição $u_f$ emitindo um som $f(t)$, qual a pressão acústica $\rho(u, t)$ num determinado ponto $u$ no tempo $t$?
+
+Podemos tentar assumir que a pressão acústica $\rho(u, t)$ depende de duas funções independentes. Isto, é, podemos tentar assumir que:
+
+\begin{equation}
+	\rho(u, t) = A(u)F(t)
+\end{equation}
+
+onde $A(u)$ seria a amplitude no ponto $u$ e $F(t)$ seria uma função que depende apenas som emitido pelas fontes sonoras. Com essa separação, se a fonte passasse a emitir o som $f^*(t)$, precisaríamos apenas computar a função $F^*(t)$ para obter a solução $\rho^*(u, t) = A(u)F^*(t)$. 
+
+A função $A(u)$ também é chamada de \emph{Radiação Acústica} ou \emph{Transferência Acústica}, pois ela mede quanta energia acústica foi transferida a partir das fontes sonoras. A equação governante para a Radiação Acústica é a \emph{Equação de Helmholtz}:
+
+\begin{eqnarray}
+	\nabla^2 A(u) + k^2A(u) &=& 0\label{helmholtzequation}\\
+&\text{onde}&\nonumber\\
+k \in \mathbb{R} &\Rightarrow& \frac{\omega}{c}\rightarrow\text{ Número de Onda (1/m)} \nonumber\\
+u \in \mathbb{R}^3 &\Rightarrow& \text{ Posição em metros(m)} \nonumber\\
+A(u) \in \mathbb{C} &\Rightarrow& \text{ Amplitude em metros(m)} \nonumber
+\end{eqnarray}
+
+\begin{figure}[ht]
+	\centering
+	\input{mathematicalbackground/helmholtz_abs.tikz}
+	\caption[Radiação acústica gerada uma fonte pontual]{Radiação acústica gerada por uma fonte pontual no centro do meio. A fonte e o ambiente determinam as condições do contorno e a radiação acústica nos demais pontos é governada pela Equação de Helmholtz}\label{helmholtz}
+\end{figure}
+
+Dois fatos são notáveis na Equação de Helmholtz: A constante $k = \frac{\omega}{c}$ depende da frequência $\omega$ da fonte sonora. Por tal razão, a Equação de Helmholtz é comumente chamada de Equação da Onda no domínio da frequencia.
+
+Note também que a função $A(u)$ tem como contra-domínio o conjunto dos números complexos $\mathbb{C}$. O uso de números complexos nesse caso é útil para representarmos a fase da onda sonora. Se escrevermos
+
+\begin{equation}
+	A(u) = |A(u)| e^{i\theta(u)} = |A(u)| (\cos \theta(u) + i\sin \theta(u))
+\end{equation}
+
+dizemos que a função $\theta(u)$ é a fase da onda sonora.
+
+\subsubsection{Aproximação em Far-Field}
+
+Considere um sistema com algumas fontes sonoras. Seja $B(r)$ a esfera de raio $r$ cujo centro está na origem. Seja $r_{near}$ tal que $B(r_{near})$ contenha todas as fontes sonoras do sistema. Dizemos que a região $B(r_{near})$ é o Near-Field (Campo Próximo) do sistema e que a região externa é o Far-Field (Campo Longíquo) do sistema (Ver \figref{fig:farfield}).
+
+\begin{figure}[ht]
+	\centering
+	\input{mathematicalbackground/farfield.tikz}
+	\caption[Radiação de Near-Field e Far-Field]{Radiação de Near-Field e Far-Field.}\label{fig:farfield}
+\end{figure}
+
+Essa separação entre o Near-Field e o Far-Field é importante para efeitos práticos. Toda a radiação acústica é gerada dentro do Near-Field e depois é dissipada para o Far-Field que, por sua vez, não deve gerar radiação acústica. Isso é matematicamente representado pela Condição de Contorno de Sommerfeld, também conhecida por \emph{Condição de Radiação de Sommerfeld}:
+
+\begin{equation}
+	\lim_{|u| \rightarrow \infty} |u| \left(\frac{\partial}{\partial |u|} - ik \right) A(u) = 0 \label{eq:sommerfeld_condition}
+\end{equation}
+
+Além disso, também observa-se uma diferença entre a complexidade do Near-Field quando comparado ao Far-Field. Dentro do Near-Field a interação entre as fontes sonoras e os demais objetos faz com que a radiação acústica seja extremamente complexo. Entretanto, a radiação acústica no Far-Field tem uma estrutura muito mais simples.
+
+Seja $\Gamma$ a superfície do Near-Field e seja $u$ um ponto no Far-Field. A radiação $A(u)$ pode ser calculada pela \emph{Integral de Kirchhoff}:
+
+\begin{equation}
+	A(x) = \int_{\Gamma} \left[G(u, v)\frac{\partial A}{\partial n}(v) - \frac{\partial G}{\partial n}(u, v)A(v) \right] d\Gamma_v
+	\label{kirchhorff_integral}
+\end{equation}
+
+onde $G(u, v)$ é a Função de Green da Equação Helmholtz:
+
+\begin{equation}
+	G(u, v) = \frac{e^{ik\norm{u-v}}}{4\pi \norm{u-v}}
+\end{equation}
+
+Utilizando a fórmula \eqref{kirchhorff_integral}, vemos que é necessário apenas calcular a Radiação Acústica no Near-Field para definirmos a solução para o Far-Field.
