@@ -1,4 +1,5 @@
 import os
+import matplotlib
 import matplotlib.pyplot as plt
 import sys
 import math
@@ -13,6 +14,11 @@ def spl(amp):
 	# return 10*math.log10(amp)
 
 def main(dir):
+	font = {'family' : 'normal',
+        'size'   : 18}
+
+	matplotlib.rc('font', **font)
+
 	data = {}
 
 	fbemPath = os.path.join(dir, "fbem")
@@ -83,7 +89,7 @@ def main(dir):
 
 		plotfun(fbemD, label='fbem')
 		# plotfun([avF for d in fbemD], label='av_fbem')
-		# plt.ylim(0, 300)
+		plt.ylim(0, 300)
 		gpuD = [abs(transfer) for transfer in data[tdata]['gpu']]
 		avG = average(gpuD)
 		gpuD = [spl(g) for g in gpuD]
@@ -101,7 +107,7 @@ def main(dir):
 		plotfun(toplot, label='error')
 
 		plt.ylabel("Sound Pressure Level - SPL (dB)")
-		plt.xlabel("Mode %d - %f Hz" %(itn, freqs[itn]))
+		plt.xlabel("Modo %d - %f Hz" %(itn, freqs[itn]))
 		plt.legend(loc='upper right')
 
 		print daimgname
@@ -111,9 +117,9 @@ def main(dir):
 	print len(freqs)
 	print len(averageError)
 	plotfun(freqs, averageError, label='error')
-	plt.ylim(0, 100)
-	plt.xlabel("Frequency (Hz)")
-	plt.ylabel("Error per mode - %")
+	plt.ylim(0, 20)
+	plt.xlabel("Frequencia (Hz)")
+	plt.ylabel("Erro Medio - SPL (%)")
 	plt.legend(loc='upper right')
 	daimgname = dir+"/plots/%s_error.png"%(dir[:-1])
 	plt.savefig(daimgname)

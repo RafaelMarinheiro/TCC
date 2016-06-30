@@ -1,0 +1,9 @@
+\section{Métodos Orientados à Amostras}
+Métodos orientados à amostras são métodos que utilizam amostras de sons como entrada para o algoritmo de síntese. Um procedimento comum nessa classe de métodos é a extração de características das amostras originais e a extrapolação dessas características na etapa de síntese.
+
+O trabalho de \cite{lloyd2011sound}, por exemplo, faz uma análise nas amostras sonoras para identificar as frequências dominantes. As frequências dominantes assemelham-se às frequências naturais do objeto. Durante o tempo de execução, as frequências dominantes são somadas poderando cada uma com pesos gerados aleatoriamente. Os sons gerados não são fisicamente plausíveis e também não podem ser estendidos de maneira adequada para objetos distintos. Porém ela é uma abordagem computacionalmente barata que oferece um certo grau de dinamismo na acústica do ambiente virtual. Por tais razões, ela é ideal para ser incorporada à jogos em tempo real.
+
+Os trabalhos de \cite{ren2013example} e de \cite{sterling2016interactive} utilizam uma abordagem mista. Os dois utilizam as amostras sonoras para encontrar os parâmetros do material. Esses parâmetros são então utilizados como entrada em métodos baseados em física. Para aprender esses parâmetros, o som e o modelo virtual de um objeto real são utilizados como entrada do algoritmo. Os resultados gerados são plausíveis embora fisicamente incorretos. 
+
+Redes neurais também são comuns na área de síntese de aúdio. Embora o seu uso seja mais comum na área de síntese de fala \cite{rahim1993use, ling2015deep}, trabalhos recentes tem explorado técnicas para gerar sons de objetos. O trabalho de \cite{visualIndicatedSounds} utiliza Deep Learning para extrair características do áudio de amostras de vídeos. Com essas características, os autores conseguem sintetizar áudio plausível para outras cenas sem áudio.
+

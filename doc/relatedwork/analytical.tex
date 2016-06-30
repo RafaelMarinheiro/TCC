@@ -1,0 +1,36 @@
+\section{Métodos Baseados em Física}
+
+Os métodos baseados em física são aqueles que tentam, através das propriedades físicas dos materiais, sintetizer o som adequado. Em outras áreas, como Engenharia Mecânica ou Engenharia Aeronáutica, o estudo da radiação acústica gerada por materiais já é uma prática comum \cite{pierce1981acoustics}. No entanto, os métodos utilizados nessas áreas costumam considerar apenas cenas estáticas, o que inviabiliza a interação com o usuário.
+
+O trabalho de \cite{van2001foleyautomatic} foi o primeiro a considerar o uso de métodos physically-based em aplicações interativas. Os autores desenvolveram um processo simples para aplicações interativas: Em tempo de pré-processamento, os modos de vibração do objetos eram calculados e armazenados. Durante a execução, os objetos eram simulados e o estado $q_i(t)$ de cada modo de vibração era considerado utilizando a equação \eqref{linear_modal_eqn}. O som final gerado pelo objeto era simplesmente a soma dos modos de vibração:
+
+\begin{equation}
+	s(t) = \sum_i q_i(t)
+\end{equation}
+
+Essa abordagem conseguia gerar som plausível em tempo real, mas muitas nuances do som eram ignoradas. A distância e o ângulo do objeto em relação ao ouvinte, por exemplo, têm uma grande influência no som final. O trabalho de \cite{james2006precomputed} então introduziu o uso de Radiação Acústica no processo de síntese (Ver \figref{fig:pipeline_overview}). Nesse trabalho, a função de Radiação Acústica $R_i(u)$ era calculada para cada modo de vibração do objeto. Em tempo de execução, a posição do objeto em relação ao ouvinte era considerada. Com essa abordagem, o som final consideraria os modos de vibração ponderados pela radiação acústica: 
+
+\begin{equation}
+	s(t) = \sum_i |R_i(u_{ouvinte}-u_{objeto})| q_i(t)
+\end{equation}
+
+\begin{figure}[ht]
+\begin{subfigure}{\textwidth}
+	\centering
+	\input{relatedwork/pipeline_offline.tikz}
+	\caption{Fase de Pré-Processamento}\label{pipeline_offline}
+\end{subfigure}
+\begin{subfigure}{\textwidth}
+	\centering
+	\input{relatedwork/pipeline_online.tikz}
+	\caption{Pipeline em Tempo de Execução}\label{pipeline_online}
+\end{subfigure}
+\caption[Overview do pipeline]{\figref{pipeline_offline} plots of....}
+\label{fig:pipeline_overview}
+\end{figure}
+
+O pipeline desenvolvido por \cite{james2006precomputed} é utilizado como base para os trabalhos mais recentes na área.\cite{zheng2010rigid}, por exemplo, extenderam o modelo para também sintetizar o som de fraturas.
+
+\cite{zheng2011toward} melhoraram o modelo de contato utilizado na simulação do objeto. A qualidade do som final depende muito das forças de contato $f_{ext}$. Para capturar melhor as nuances do contato, eles passaram a utilizar um simulador numericamente estável \cite{kaufman2008staggered} e também aumentaram a resolução da simulação para a resolução acústica (44KHz). Como resultado, a qualidade do áudio foi drasticamente melhorada mas o tempo necessário para realizar a síntese também aumentou.
+
+Para realizar a síntese, os modos de vibração tem que ser utilizados em tempo de execução. Para objetos maiores, a quantidade de memória necessária para armazená-los pode inviabilizar a simulação. \cite{langlois2014eigenmode} desenvolveram um método para comprimir os modos de vibração. Isso possibilitou utilizar objetos maiores e mais detalhados sem impacto no tempo de síntese. 
