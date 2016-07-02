@@ -14,12 +14,13 @@ Acústica é a ciência que estuda a som. É ciência que estuda a sua origem e 
 No estudo de acústica, a principal equação é a \emph{Equação da Onda}. Considerando um meio dispersante, a pressão do meio é governada pela seguinte equação diferencial:
 
 \begin{eqnarray}
-\frac{\partial^2 \rho(u, t)}{\partial t^2} &=& c^2 \nabla^2 \rho(u, t)\label{acousticequation} \\
+\frac{\partial^2 \rho(u, t)}{\partial t^2} &=& dc^2 \nabla^2 \rho(u, t)\label{acousticequation} \\
 &\text{onde}&\nonumber\\
-t \in \mathbb{R} &\Rightarrow& \text{Tempo em segundos(s)} \nonumber\\
-u \in \mathbb{R}^3 &\Rightarrow& \text{Posição em metros(m)} \nonumber\\
-c \in \mathbb{R} &\Rightarrow& \text{Velocidade de Propagação (m/s)} \nonumber\\
-\rho(u, t) \in \mathbb{R} &\Rightarrow& \text{Pressão acústica (Pa)} \nonumber
+t \in \mathbb{R} &\Rightarrow& \text{Tempo em segundos }(s) \nonumber\\
+u \in \mathbb{R}^3 &\Rightarrow& \text{Posição em metros }(m) \nonumber\\
+c \in \mathbb{R} &\Rightarrow& \text{Velocidade de Propagação }(\nicefrac{m}{s}) \nonumber\\
+c \in \mathbb{R} &\Rightarrow& \text{Densidade } \nicefrac{kg}{m^3} \nonumber\\
+\rho(u, t) \in \mathbb{R} &\Rightarrow& \text{Pressão acústica }(Pa) \nonumber
 \end{eqnarray}
 
 Na equação \eqref{acousticequation}, o operador $\nabla^2$ corresponde ao operador Laplaciano Espacial. Isto é:

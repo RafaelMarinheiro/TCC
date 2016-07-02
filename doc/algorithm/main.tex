@@ -1,7 +1,64 @@
 %!TEX root = ../main.tex
 \chapter{Algoritmo e Implementação}
 
-\section {Análise Modal}
+\section {Discretização e Solução da Equação da Onda}
+
+A equação da onda \eqref{acousticequation} é a equação governante da pressão acústica $\rho(u, t)$. Na nossa solução, no entanto, gostaríamos de especificar as condições de contorno em termo da velocidade das partículas. Para fazer isso, podemos separar a equação em um sistema de equações diferenciais:
+
+\begin{eqnarray} \label{eq:wave_equation_velocity}
+	\frac{\partial^2 \rho(u, t)}{\partial t^2} = dc^2 \nabla^2 \rho(u, t)
+	&\Leftrightarrow&
+	\begin{cases}
+		\dfrac{\partial v(u, t)}{\partial t} = -\dfrac{\nabla \rho(u, t)}{d}\\
+		\dfrac{\partial \rho(u, t)}{\partial t} = c^2 \nabla \cdot v(u, t)	
+	\end{cases}\\
+	&\text{onde}&\nonumber\\
+	t \in \mathbb{R} &\Rightarrow& \text{Tempo em segundos }(s) \nonumber\\
+	u \in \mathbb{R}^3 &\Rightarrow& \text{Posição em metros }(m) \nonumber\\
+	c \in \mathbb{R} &\Rightarrow& \text{Velocidade de Propagação }(\nicefrac{m}{s}) \nonumber\\
+	c \in \mathbb{R} &\Rightarrow& \text{Densidade } \nicefrac{kg}{m^3} \nonumber\\
+	\rho(u, t) \in \mathbb{R} &\Rightarrow& \text{Pressão acústica }(Pa) \nonumber\\
+	v(u, t) \in \mathbb{R}^3 &\Rightarrow& \text{Velocidade das Partículas } (\nicefrac{m}{s})\nonumber
+\end{eqnarray}
+
+Nesse sistema de equações, $v(u, t)$ é a velocidade das partículas do meio na posição $u$ e no tempo $t$. O primeiro passo para resolver esse sistema de equações, é discretizar o seu domínio. Na nossa implementação, nós utilizamos o esquema de discretização Marker-And-Cell (MAC) \cite{welch1966mac}. Nesse esquema, o espaço é discretizado em elementos cada elemento contém a pressão acústica $\rho(u, t)$ no centro e contém as componentes da velocidade $v(u, t)$ nas bordas (Ver \figref{fig:macgrid}).
+
+\begin{figure}[ht]
+\centering
+\input{algorithm/markerandcell.tikz}
+\caption[Discretização Marker-And-Cell]{Discretização Marker-And-Cell}
+\label{fig:macgrid}
+\end{figure}
+
+Podemos facilmente mapear as derivadas de \eqref{eq:wave_equation_velocity} para esse domínio:
+
+\begin{eqnarray*}
+	\frac{\partial v_{d}(u, t)}{\partial t} &\Rightarrow& \frac{1}{\Delta t}\left( v_{d}[x, y, z, t + \Delta t] - v_{d}[x, y, z, t]\right)\\
+	% 
+	\frac{\partial \rho(u, t)}{\partial t} &\Rightarrow& \frac{1}{\Delta t}\left( \rho[x, y, z, t + \Delta t] - \rho[x, y, z, t]\right) \\
+	% 
+	\frac{\partial \rho(u, t)}{\partial x} &\Rightarrow& \frac{1}{\Delta x}\left( u_{d}[x + \nicefrac{\Delta x}{2}, y, z, t + \Delta t] - v_{d}[x-\nicefrac{\Delta x}{2}, y, z, t]\right)\\
+	% 
+	\frac{\partial v(u, t)}{\partial x} &\Rightarrow& \frac{1}{\Delta x}\left( v_{d}[x+\nicefrac{\Delta x}{2}, y, z, t] - v_{d}[x-\nicefrac{\Delta x}{2}, y, z, t]\right)
+\end{eqnarray*}
+
+Com isso, podemos substituir essas fórmulas na equação \eqref{eq:wave_equation_velocity} para obter uma regra de atualização dos campos de velocidade e pressão acústica:
+
+\begin{equation} \label{eq:wave_equation_leapfrog}
+	\begin{cases}
+		\forall n \in (x, y, z) \Rightarrow& v_{n}[x, y, z, t+\Delta t] = v_{n}[x, y, z, t] - \dfrac{\Delta t}{d}\dfrac{\partial \rho(u, t)}{\partial n}\\
+		% 
+		&\rho[x, y, z, t+\Delta t] = \rho[x, y, z, t] + c^2 \left( \sum_{n \in (x, y, z)} \dfrac{\partial v(u, t)}{\partial n} \right)
+	\end{cases}
+\end{equation}
+
+Nós utilizamos as fórmulas em \eqref{eq:wave_equation_leapfrog} alternadamente para avançar a nossa solução. Primeiro atualizamos o campo da velocidade e utilizamos esses valores para atualizar o campo da pressão acústica. Esse tipo de solução para sistemas de equações diferenciais também é conhecido como \emph{Leapfrog}.
+
+As condições de contorno são calculadas para cada modo de vibração. Considere objeto vibrando no modo de vibração $v_i$ na sua frequência natural $\omega_i$. Dado um ponto $p$ na superfície do objeto, digamos que o vetor de vibração correspondente seja $\vec{n_p} \in \mathbb{R}^3$. Nesse caso, forçamos que a velocidade das partículas nesse ponto seja igual à velocidade da superfície do objeto adicionando a condição de contorno:
+
+\begin{equation}
+	v(p, t) = \vec{n_p}\omega_i\sin(\omega_it) 
+\end{equation}
 
 \input{algorithm/transfer}
 
