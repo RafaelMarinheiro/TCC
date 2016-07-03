@@ -108,7 +108,7 @@ def main(dir):
 
 		plt.ylabel("Sound Pressure Level - SPL (dB)")
 		plt.xlabel("Modo %d - %f Hz" %(itn, freqs[itn]))
-		plt.legend(loc='upper right')
+		plt.legend(loc='center right')
 
 		print daimgname
 		plt.savefig(dir+"/plots/"+daimgname)
@@ -120,7 +120,7 @@ def main(dir):
 	plt.ylim(0, 20)
 	plt.xlabel("Frequencia (Hz)")
 	plt.ylabel("Erro Medio - SPL (%)")
-	plt.legend(loc='upper right')
+	plt.legend(loc='center right')
 	daimgname = dir+"/plots/%s_error.png"%(dir[:-1])
 	plt.savefig(daimgname)
 	plt.clf()

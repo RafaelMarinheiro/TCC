@@ -1,6 +1,8 @@
 %!TEX root = ../main.tex
 \chapter{Experimentos e Resultados}
 
+Para comparar a qualidade e a performance da nossa solução com as abordagens anteriores, criamos três cenários de teste: (1) Prato de Cerâmica, (2) Caneca de Cerâmica, (3) Chave de Aço. Os parâmetros de materiais utilizados estão descritos na \tabref{tab:material_parameters}.
+
 \begin{table}[ht]
 \begin{center}
 \begin{tabular}{c|ccccc}
@@ -12,51 +14,77 @@ Aço & $1050$ & $3.5 \times 10^9$ & $0.34$ & $30$ & $8 \times 10^{-7}$\\
 \caption{Parâmetros de Materiais}\label{tab:material_parameters}
 \end{table}
 
-\section{Benchmark}
-Before the Titan, computing all 6 fields for the Acceleration Noise in a $176^3$ grid would take ~110ms. After installing the Titan card, it is taking ~12ms (I didn't even recompiled the code). Now I can use the profiler and hopefully I will be able to reduce that by another factor.
+Para cada cenário de teste, computamos os Coeficientes Multipolares usando a nossa abordagem e também computamos os Coeficientes Multipolares utilizando a abordagem descrita em \cite{zheng2010rigid}. Essa última que é a mesma utilizada em \cite{zheng2010rigid, zheng2011toward, langlois2014eigenmode}, utiliza o software comercial FastBEM \cite{fastbem}. Vale notar que tivemos acesso ao código original dos autores.
 
-15 segundos por modo
+Os testes foram todos executados na mesma máquina. A \tabref{tab:benchmark_hardware} apresenta a especificação do Hardware utilizado.
 
+\begin{table}[ht]
+\begin{center}
+\begin{tabular}{c|ccccc}
+Componente & Especificação\\
+\hline 
+Placa-Mãe & SuperMicro X8DAH\\
+CPU & Intel Xeon X5570 - 8-Core @2.93GHz\\
+Memória RAM & 12x4GB DDR3 @1333MHz\\
+GPU & GeForce TITAN BLACK 6GB DDR5
+\end{tabular}
+\end{center}
+\caption{Especificações de Hardware}\label{tab:benchmark_hardware}
+\end{table}
 
-\section{Teste Numérico}
+A \tabref{tab:benchmark_timings} apresenta a comparação de performance entre a nossa abordagem e as abordagens anteriores. A nossa abordagem obtem um speedup de mais de 30x em todos os cenários de teste.
 
-Para testarmos numericamente o nosso método
+\begin{table}[ht]
+\begin{center}
+\begin{tabular}{c|c|c c|c|c}
+\multirow{2}{*}{Cenário}& \multirow{2}{*}{\# de modos} & \multicolumn{2}{c|}{Nosso Método} & FastBEM & \multirow{2}{*}{Speedup}\\
+\cline{3-5}
+& & Tempo (min) & Memória de GPU (MB) & Tempo (min)\\
+\hline 
+1 & 29 & 8.3 min & 578.1MB & 327.2 min & 39.42x\\
+2 & 39 & 18.6 min & 998.7MB & 686.5 min & 36.90x\\
+3 & 4 & 3.54 min & 1586.3MB & 102.9 min & 29.06x
+\end{tabular}
+\end{center}
+\caption{Comparação de Performance entre a nossa solução e abordagens anteriores}\label{tab:benchmark_timings}
+\end{table}
 
-Para testarmos numericamente o nosso método
-
-Para testarmos numericamente o nosso método
-
-Para testarmos numericamente o nosso método
+Também comparamos os valores numérico da nossa solução com os valores calculados pela abordagem anterior (Ver \figref{fig:coef_plate}, \figref{fig:coef_mug} e \figref{fig:coef_key}). A diferença numérica entre os métodos ficou abaixo de 5\%.
 
 \begin{figure}[ht]
 \centering
 \begin{subfigure}{0.6\textwidth}
 	\centering
-	\includegraphics[width=\textwidth]{../data/transfer_test/steel_key/plots/steel_key_error.png}
-	\caption{}\label{fig:coef_key_err}
+	\includegraphics[width=\textwidth]{../data/transfer_test/ceramic_plate/plots/ceramic_plate_error.png}
+	\caption{}
+	\label{fig:coef_plate_err}
 \end{subfigure}
-\begin{subfigure}{0.5\textwidth}
+\begin{subfigure}{0.45\textwidth}
 	\centering
-	\includegraphics[width=\textwidth]{../data/transfer_test/steel_key/plots/steel_key-tfv-0_0.png}
-	\label{fig:coef_key_0}
+	\includegraphics[width=\textwidth]{../data/transfer_test/ceramic_plate/plots/ceramic_plate-tfv-0_1.png}
+	\caption{}
+	\label{fig:coef_plate_1}
 \end{subfigure}%
-\begin{subfigure}{0.5\textwidth}
+\begin{subfigure}{0.45\textwidth}
 	\centering
-	\includegraphics[width=\textwidth]{../data/transfer_test/steel_key/plots/steel_key-tfv-0_1.png}
-	\label{fig:coef_key_1}
+	\includegraphics[width=\textwidth]{../data/transfer_test/ceramic_plate/plots/ceramic_plate-tfv-0_2.png}
+	\label{fig:coef_plate_2}
+	\caption{}
 \end{subfigure}
-\begin{subfigure}{0.5\textwidth}
+\begin{subfigure}{0.45\textwidth}
 	\centering
-	\includegraphics[width=\textwidth]{../data/transfer_test/steel_key/plots/steel_key-tfv-0_2.png}
-	\label{fig:coef_key_2}
+	\includegraphics[width=\textwidth]{../data/transfer_test/ceramic_plate/plots/ceramic_plate-tfv-0_18.png}
+	\caption{}
+	\label{fig:coef_plate_18}
 \end{subfigure}%
-\begin{subfigure}{0.5\textwidth}
+\begin{subfigure}{0.45\textwidth}
 	\centering
-	\includegraphics[width=\textwidth]{../data/transfer_test/steel_key/plots/steel_key-tfv-0_3.png}
-	\label{fig:coef_key_3}
+	\includegraphics[width=\textwidth]{../data/transfer_test/ceramic_plate/plots/ceramic_plate-tfv-0_33.png}
+	\caption{}
+	\label{fig:coef_plate_33}
 \end{subfigure}
-\caption[Modos de Vibração de objetos]{Modos de Vibração de objetos. Ao topo: Modos de vibração de um prato de cerâmica. Abaixo: Modos de vibração de uma taça de vidro. Fonte: \cite{langlois2014eigenmode}}
-\label{fig:coef_key}
+\caption[Comparação numérica para o Prato de Cerâmica]{Comparação numérica para o Prato de Cerâmica. A figura ao topo apresenta o Erro Médio por frequência. As demais figuras apresentam a comparação para modos de vibração específicos.}
+\label{fig:coef_plate}
 \end{figure}
 
 \begin{figure}[ht]
@@ -64,29 +92,34 @@ Para testarmos numericamente o nosso método
 \begin{subfigure}{0.6\textwidth}
 	\centering
 	\includegraphics[width=\textwidth]{../data/transfer_test/ceramic_mug/plots/ceramic_mug_error.png}
+	\caption{}
 	\label{fig:coef_mug_err}
 \end{subfigure}
-\begin{subfigure}{0.5\textwidth}
+\begin{subfigure}{0.45\textwidth}
 	\centering
 	\includegraphics[width=\textwidth]{../data/transfer_test/ceramic_mug/plots/ceramic_mug-tfv-0_0.png}
+	\caption{}
 	\label{fig:coef_mug_0}
 \end{subfigure}%
-\begin{subfigure}{0.5\textwidth}
+\begin{subfigure}{0.45\textwidth}
 	\centering
 	\includegraphics[width=\textwidth]{../data/transfer_test/ceramic_mug/plots/ceramic_mug-tfv-0_2.png}
+	\caption{}
 	\label{fig:coef_mug_2}
 \end{subfigure}
-\begin{subfigure}{0.5\textwidth}
+\begin{subfigure}{0.45\textwidth}
 	\centering
 	\includegraphics[width=\textwidth]{../data/transfer_test/ceramic_mug/plots/ceramic_mug-tfv-0_16.png}
+	\caption{}
 	\label{fig:coef_mug_16}
 \end{subfigure}%
-\begin{subfigure}{0.5\textwidth}
+\begin{subfigure}{0.45\textwidth}
 	\centering
 	\includegraphics[width=\textwidth]{../data/transfer_test/ceramic_mug/plots/ceramic_mug-tfv-0_26.png}
+	\caption{}
 	\label{fig:coef_mug_26}
 \end{subfigure}
-\caption[Modos de Vibração de objetos]{Modos de Vibração de objetos. Ao topo: Modos de vibração de um prato de cerâmica. Abaixo: Modos de vibração de uma taça de vidro. Fonte: \cite{langlois2014eigenmode}}
+\caption[Comparação numérica para a Caneca de Cerâmica]{Comparação numérica para a Caneca de Cerâmica. A figura ao topo apresenta o Erro Médio por frequência. As demais figuras apresentam a comparação para modos de vibração específicos.}
 \label{fig:coef_mug}
 \end{figure}
 
@@ -94,39 +127,41 @@ Para testarmos numericamente o nosso método
 \centering
 \begin{subfigure}{0.6\textwidth}
 	\centering
-	\includegraphics[width=\textwidth]{../data/transfer_test/ceramic_plate/plots/ceramic_plate_error.png}
-	\label{fig:coef_plate_err}
+	\includegraphics[width=\textwidth]{../data/transfer_test/steel_key/plots/steel_key_error.png}
+	\caption{}
+	\label{fig:coef_key_err}
 \end{subfigure}
-\begin{subfigure}{0.5\textwidth}
+\begin{subfigure}{0.45\textwidth}
 	\centering
-	\includegraphics[width=\textwidth]{../data/transfer_test/ceramic_plate/plots/ceramic_plate-tfv-0_1.png}
-	\label{fig:coef_plate_1}
+	\includegraphics[width=\textwidth]{../data/transfer_test/steel_key/plots/steel_key-tfv-0_0.png}
+	\caption{}
+	\label{fig:coef_key_0}
 \end{subfigure}%
-\begin{subfigure}{0.5\textwidth}
+\begin{subfigure}{0.45\textwidth}
 	\centering
-	\includegraphics[width=\textwidth]{../data/transfer_test/ceramic_plate/plots/ceramic_plate-tfv-0_2.png}
-	\label{fig:coef_plate_2}
+	\includegraphics[width=\textwidth]{../data/transfer_test/steel_key/plots/steel_key-tfv-0_1.png}
+	\caption{}
+	\label{fig:coef_key_1}
 \end{subfigure}
-\begin{subfigure}{0.5\textwidth}
+\begin{subfigure}{0.45\textwidth}
 	\centering
-	\includegraphics[width=\textwidth]{../data/transfer_test/ceramic_plate/plots/ceramic_plate-tfv-0_18.png}
-	\label{fig:coef_plate_18}
+	\includegraphics[width=\textwidth]{../data/transfer_test/steel_key/plots/steel_key-tfv-0_2.png}
+	\caption{}
+	\label{fig:coef_key_2}
 \end{subfigure}%
-\begin{subfigure}{0.5\textwidth}
+\begin{subfigure}{0.45\textwidth}
 	\centering
-	\includegraphics[width=\textwidth]{../data/transfer_test/ceramic_plate/plots/ceramic_plate-tfv-0_33.png}
-	\label{fig:coef_plate_33}
+	\includegraphics[width=\textwidth]{../data/transfer_test/steel_key/plots/steel_key-tfv-0_3.png}
+	\caption{}
+	\label{fig:coef_key_3}
 \end{subfigure}
-\caption[Modos de Vibração de objetos]{Modos de Vibração de objetos. Ao topo: Modos de vibração de um prato de cerâmica. Abaixo: Modos de vibração de uma taça de vidro. Fonte: \cite{langlois2014eigenmode}}
-\label{fig:coef_plate}
+\caption[Comparação numérica para a Chave de Aço]{Comparação numérica para a Chave de Aço. A figura ao topo apresenta o Erro Médio por frequência. As demais figuras apresentam a comparação para modos de vibração específicos.}
+\label{fig:coef_key}
 \end{figure}
-
 
 \section{Teste de Percepção}
 
-Para testarmos a qualidade final do áudio sintetizado, geramos três cenários distintos. Para cada cenário, geramos um áudio com os coeficientes calculados pelo FastBEM e outro áudio com os coeficientes calculados com o nosso método. O restante do pipeline não foi modificado.
-
-Um teste A/B foi feito com voluntários. Nesse teste, o voluntário assistia ambas as versões do vídeo (identificadas apenas por A ou B) e deveria responder à pergunta: ``Qual dos dois pareceu mais realista? A ou B?''. O voluntário tinha como opções: ``A'', ``B'' ou ``Não sei''. A \tabref{tab:survey_results} contém o resultado da pesquisa.
+Para testar a qualidade do áudio final, um teste A/B foi feito com voluntários. Nesse teste, o voluntário assistia ambas as versões do vídeo (identificadas apenas por A ou B) e deveria responder à pergunta: ``Qual dos dois pareceu mais realista? A ou B?''. O voluntário tinha como opções: ``A'', ``B'' ou ``Não sei''. A \tabref{tab:survey_results} contém o resultado da pesquisa.
 
 \begin{table}[ht]
 \begin{center}
@@ -140,6 +175,9 @@ Total & & & & 254 respostas
 \end{center}
 \caption{Resultado dos Testes de Percepção}\label{tab:survey_results}
 \end{table}
+
+Em todos os testes, a maioria dos usuário considerou que o som gerado pelo nosso método era mais realista que ou tão realista quanto o som gerado pelos métodos anteriores. Considerando que o nosso objetivo era apenas acelerar o método, esses resultados excedem as nossas expectativas.
+
 
 
 

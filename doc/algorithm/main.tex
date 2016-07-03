@@ -60,6 +60,8 @@ As condições de contorno são calculadas para cada modo de vibração. Conside
 	v(p, t) = \vec{n_p}\omega_i\sin(\omega_it) 
 \end{equation}
 
-\input{algorithm/transfer}
+Para lidar com as bordas do domínio, utilizamos as condições de contorno conhecidas como Perfectly Matched Layers \cite{liu1997perfectly}. Desse modo, as ondas são absorvidas ao invés de serem refletidas para o domínio.
 
-\section {Síntese}
+Na nossa implementação, a atualização dos campos de pressão acústica e de velocidade é executada em GPU. Nós utilizamos a abordagem descrita em \cite{micikevicius20093d} para explorar o paralelismo.
+
+\input{algorithm/transfer}

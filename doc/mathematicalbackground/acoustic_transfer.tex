@@ -8,19 +8,19 @@ O caso mais comum de síntese acústica consiste no problema das fontes sonoras:
 Podemos tentar assumir que a pressão acústica $\rho(u, t)$ depende de duas funções independentes. Isto, é, podemos tentar assumir que:
 
 \begin{equation}
-	\rho(u, t) = R(u)F(t)
+	\rho(u, t) = T(u)F(t)
 \end{equation}
 
-onde $R(u)$ seria a amplitude no ponto $u$ e $F(t)$ seria uma função que depende apenas som emitido pelas fontes sonoras. Com essa separação, se a fonte passasse a emitir o som $f^*(t)$, precisaríamos apenas computar a função $F^*(t)$ para obter a solução $\rho^*(u, t) = R(u)F^*(t)$. 
+onde $T(u)$ seria a amplitude no ponto $u$ e $F(t)$ seria uma função que depende apenas som emitido pelas fontes sonoras. Com essa separação, se a fonte passasse a emitir o som $f^*(t)$, precisaríamos apenas computar a função $F^*(t)$ para obter a solução $\rho^*(u, t) = T(u)F^*(t)$. 
 
-A função $R(u)$ também é chamada de \emph{Radiação Acústica} ou \emph{Transferência Acústica}, pois ela mede quanta energia acústica foi transferida a partir das fontes sonoras. A equação governante para a Radiação Acústica é a \emph{Equação de Helmholtz}:
+A função $T(u)$ também é chamada de \emph{Radiação Acústica} ou \emph{Transferência Acústica}, pois ela mede quanta energia acústica foi transferida a partir das fontes sonoras. A equação governante para a Radiação Acústica é a \emph{Equação de Helmholtz}:
 
 \begin{eqnarray}
-	\nabla^2 R(u) + k^2R(u) &=& 0\label{helmholtzequation}\\
+	\nabla^2 T(u) + k^2T(u) &=& 0\label{helmholtzequation}\\
 &\text{onde}&\nonumber\\
 k \in \mathbb{R} &\Rightarrow& \frac{\omega}{c}\rightarrow\text{ Número de Onda (1/m)} \nonumber\\
 u \in \mathbb{R}^3 &\Rightarrow& \text{ Posição em metros(m)} \nonumber\\
-R(u) \in \mathbb{C} &\Rightarrow& \text{ Amplitude em metros(m)} \nonumber
+T(u) \in \mathbb{C} &\Rightarrow& \text{ Amplitude em metros(m)} \nonumber
 \end{eqnarray}
 
 \begin{figure}[ht]
@@ -31,10 +31,10 @@ R(u) \in \mathbb{C} &\Rightarrow& \text{ Amplitude em metros(m)} \nonumber
 
 Dois fatos são notáveis na Equação de Helmholtz: A constante $k = \frac{\omega}{c}$ depende da frequência $\omega$ da fonte sonora. Por tal razão, a Equação de Helmholtz é comumente chamada de Equação da Onda no domínio da frequencia.
 
-Note também que a função $R(u)$ tem como contra-domínio o conjunto dos números complexos $\mathbb{C}$. O uso de números complexos nesse caso é útil para representarmos a fase da onda sonora. Se escrevermos $R(u) = A(u)e^{i\phi(u)}$ e $F(t) = A_0e^{i\omega t}$, obteremos:
+Note também que a função $T(u)$ tem como contra-domínio o conjunto dos números complexos $\mathbb{C}$. O uso de números complexos nesse caso é útil para representarmos a fase da onda sonora. Se escrevermos $T(u) = A(u)e^{i\phi(u)}$ e $F(t) = A_0e^{i\omega t}$, obteremos:
 
 \begin{eqnarray}
-	\rho(u, t) =& Re\left( R(u)F(t) \right) \nonumber\\
+	\rho(u, t) =& Re\left( T(u)F(t) \right) \nonumber\\
 	=& Re\left(A_0A(u) e^{i(\omega t + \phi(u)}\right) \nonumber\\
 	=& Re\left(A_0A(u)(\cos (\omega t + \phi(u)) + i\sin (\omega t + \phi(u))\right) \nonumber\\
 	=& A_0A(u)\cos \theta(\omega t + \phi(u))
@@ -55,15 +55,15 @@ Considere um sistema com algumas fontes sonoras. Seja $B(r)$ a esfera de raio $r
 Essa separação entre o Near-Field e o Far-Field é importante para efeitos práticos. Toda a radiação acústica é gerada dentro do Near-Field e depois é dissipada para o Far-Field que, por sua vez, não deve gerar radiação acústica. Isso é matematicamente representado pela Condição de Contorno de Sommerfeld, também conhecida por \emph{Condição de Radiação de Sommerfeld}:
 
 \begin{equation}
-	\lim_{|u| \rightarrow \infty} |u| \left(\frac{\partial}{\partial |u|} - ik \right) R(u) = 0 \label{eq:sommerfeld_condition}
+	\lim_{|u| \rightarrow \infty} |u| \left(\frac{\partial}{\partial |u|} - ik \right) T(u) = 0 \label{eq:sommerfeld_condition}
 \end{equation}
 
 Além disso, também observa-se uma diferença entre a complexidade do Near-Field quando comparado ao Far-Field. Dentro do Near-Field a interação entre as fontes sonoras e os demais objetos faz com que a radiação acústica seja extremamente complexo. Entretanto, a radiação acústica no Far-Field tem uma estrutura muito mais simples.
 
-Seja $\Gamma$ a superfície do Near-Field e seja $u$ um ponto no Far-Field. A radiação $R(u)$ pode ser calculada pela \emph{Integral de Kirchhoff}:
+Seja $\Gamma$ a superfície do Near-Field e seja $u$ um ponto no Far-Field. A radiação $T(u)$ pode ser calculada pela \emph{Integral de Kirchhoff}:
 
 \begin{equation}
-	R(x) = \int_{\Gamma} \left[G(u, v)\frac{\partial A}{\partial n}(v) - \frac{\partial G}{\partial n}(u, v)R(v) \right] d\Gamma_v
+	T(u) = \int_{\Gamma} \left[G(u, v)\frac{\partial T}{\partial n}(v) - \frac{\partial G}{\partial n}(u, v)T(v) \right] d\Gamma_v
 	\label{kirchhorff_integral}
 \end{equation}
 
