@@ -14,7 +14,7 @@ Aço & $1050$ & $3.5 \times 10^9$ & $0.34$ & $30$ & $8 \times 10^{-7}$\\
 \caption{Parâmetros de Materiais}\label{tab:material_parameters}
 \end{table}
 
-Para cada cenário de teste, computamos os Coeficientes Multipolares usando a nossa abordagem e também computamos os Coeficientes Multipolares utilizando a abordagem descrita em \cite{zheng2010rigid}. Essa última que é a mesma utilizada em \cite{zheng2010rigid, zheng2011toward, langlois2014eigenmode}, utiliza o software comercial FastBEM \cite{fastbem}. Vale notar que tivemos acesso ao código original dos autores.
+Para cada cenário de teste, computamos os Coeficientes Multipolares usando a nossa abordagem e também computamos os Coeficientes Multipolares utilizando a abordagem descrita em \cite{zheng2010rigid}. Essa última que é a mesma utilizada em \cite{zheng2010rigid, zheng2011toward, langlois2014eigenmode}, utiliza o software comercial FastBEM \cite{fastbem}. Vale salientar que, para realizarmos a comparação, utilizamos a implementação original cedida pelos autores.
 
 Os testes foram todos executados na mesma máquina. A \tabref{tab:benchmark_hardware} apresenta a especificação do Hardware utilizado.
 
@@ -49,119 +49,34 @@ A \tabref{tab:benchmark_timings} apresenta a comparação de performance entre a
 \caption{Comparação de Performance entre a nossa solução e abordagens anteriores}\label{tab:benchmark_timings}
 \end{table}
 
-Também comparamos os valores numérico da nossa solução com os valores calculados pela abordagem anterior (Ver \figref{fig:coef_plate}, \figref{fig:coef_mug} e \figref{fig:coef_key}). A diferença numérica entre os métodos ficou abaixo de 5\%.
+Também comparamos os valores numérico da nossa solução com os valores calculados pela abordagem anterior (Ver \figref{fig:coef_plate_delta}). A diferença numérica entre os métodos ficou abaixo de 5\%. Os demais gráficos e resultados numéricos estão disponíveis no Anexo A.
 
 \begin{figure}[ht]
 \centering
-\begin{subfigure}{0.6\textwidth}
-	\centering
-	\includegraphics[width=\textwidth]{../data/transfer_test/ceramic_plate/plots/ceramic_plate_error.png}
-	\caption{}
-	\label{fig:coef_plate_err}
-\end{subfigure}
-\begin{subfigure}{0.45\textwidth}
-	\centering
-	\includegraphics[width=\textwidth]{../data/transfer_test/ceramic_plate/plots/ceramic_plate-tfv-0_1.png}
-	\caption{}
-	\label{fig:coef_plate_1}
-\end{subfigure}%
-\begin{subfigure}{0.45\textwidth}
-	\centering
-	\includegraphics[width=\textwidth]{../data/transfer_test/ceramic_plate/plots/ceramic_plate-tfv-0_2.png}
-	\label{fig:coef_plate_2}
-	\caption{}
-\end{subfigure}
-\begin{subfigure}{0.45\textwidth}
-	\centering
-	\includegraphics[width=\textwidth]{../data/transfer_test/ceramic_plate/plots/ceramic_plate-tfv-0_18.png}
-	\caption{}
-	\label{fig:coef_plate_18}
-\end{subfigure}%
-\begin{subfigure}{0.45\textwidth}
-	\centering
-	\includegraphics[width=\textwidth]{../data/transfer_test/ceramic_plate/plots/ceramic_plate-tfv-0_33.png}
-	\caption{}
-	\label{fig:coef_plate_33}
-\end{subfigure}
-\caption[Comparação numérica para o Prato de Cerâmica]{Comparação numérica para o Prato de Cerâmica. A figura ao topo apresenta o Erro Médio por frequência. As demais figuras apresentam a comparação para modos de vibração específicos.}
-\label{fig:coef_plate}
+\includegraphics[width=0.6\textwidth]{../data/transfer_test/ceramic_plate/plots/ceramic_plate_error.png}
+\caption[Comparação numérica para o Prato de Cerâmica]{Comparação numérica para o Prato de Cerâmica. O gráfico apresenta a diferença numérica média por frequência.}
+\label{fig:coef_plate_delta}
 \end{figure}
 
-\begin{figure}[ht]
-\centering
-\begin{subfigure}{0.6\textwidth}
-	\centering
-	\includegraphics[width=\textwidth]{../data/transfer_test/ceramic_mug/plots/ceramic_mug_error.png}
-	\caption{}
-	\label{fig:coef_mug_err}
-\end{subfigure}
-\begin{subfigure}{0.45\textwidth}
-	\centering
-	\includegraphics[width=\textwidth]{../data/transfer_test/ceramic_mug/plots/ceramic_mug-tfv-0_0.png}
-	\caption{}
-	\label{fig:coef_mug_0}
-\end{subfigure}%
-\begin{subfigure}{0.45\textwidth}
-	\centering
-	\includegraphics[width=\textwidth]{../data/transfer_test/ceramic_mug/plots/ceramic_mug-tfv-0_2.png}
-	\caption{}
-	\label{fig:coef_mug_2}
-\end{subfigure}
-\begin{subfigure}{0.45\textwidth}
-	\centering
-	\includegraphics[width=\textwidth]{../data/transfer_test/ceramic_mug/plots/ceramic_mug-tfv-0_16.png}
-	\caption{}
-	\label{fig:coef_mug_16}
-\end{subfigure}%
-\begin{subfigure}{0.45\textwidth}
-	\centering
-	\includegraphics[width=\textwidth]{../data/transfer_test/ceramic_mug/plots/ceramic_mug-tfv-0_26.png}
-	\caption{}
-	\label{fig:coef_mug_26}
-\end{subfigure}
-\caption[Comparação numérica para a Caneca de Cerâmica]{Comparação numérica para a Caneca de Cerâmica. A figura ao topo apresenta o Erro Médio por frequência. As demais figuras apresentam a comparação para modos de vibração específicos.}
-\label{fig:coef_mug}
-\end{figure}
+% \begin{figure}[ht] \label{fig:coef_mug_delta}
+% \centering
+% \includegraphics[width=0.6\textwidth]{../data/transfer_test/ceramic_mug/plots/ceramic_mug_error.png}
+% \caption[Comparação numérica para a Caneca de Cerâmica]{Comparação numérica para a Caneca de Cerâmica. A figura ao topo apresenta o Erro Médio por frequência. As demais figuras apresentam a comparação para modos de vibração específicos.}
+% \end{figure}
 
-\begin{figure}[ht]
-\centering
-\begin{subfigure}{0.6\textwidth}
-	\centering
-	\includegraphics[width=\textwidth]{../data/transfer_test/steel_key/plots/steel_key_error.png}
-	\caption{}
-	\label{fig:coef_key_err}
-\end{subfigure}
-\begin{subfigure}{0.45\textwidth}
-	\centering
-	\includegraphics[width=\textwidth]{../data/transfer_test/steel_key/plots/steel_key-tfv-0_0.png}
-	\caption{}
-	\label{fig:coef_key_0}
-\end{subfigure}%
-\begin{subfigure}{0.45\textwidth}
-	\centering
-	\includegraphics[width=\textwidth]{../data/transfer_test/steel_key/plots/steel_key-tfv-0_1.png}
-	\caption{}
-	\label{fig:coef_key_1}
-\end{subfigure}
-\begin{subfigure}{0.45\textwidth}
-	\centering
-	\includegraphics[width=\textwidth]{../data/transfer_test/steel_key/plots/steel_key-tfv-0_2.png}
-	\caption{}
-	\label{fig:coef_key_2}
-\end{subfigure}%
-\begin{subfigure}{0.45\textwidth}
-	\centering
-	\includegraphics[width=\textwidth]{../data/transfer_test/steel_key/plots/steel_key-tfv-0_3.png}
-	\caption{}
-	\label{fig:coef_key_3}
-\end{subfigure}
-\caption[Comparação numérica para a Chave de Aço]{Comparação numérica para a Chave de Aço. A figura ao topo apresenta o Erro Médio por frequência. As demais figuras apresentam a comparação para modos de vibração específicos.}
-\label{fig:coef_key}
-\end{figure}
+% \begin{figure}[ht] \label{fig:coef_key_delta}
+% \centering
+% 	\includegraphics[width=0.6\textwidth]{../data/transfer_test/steel_key/plots/steel_key_error.png}
+% \caption[Comparação numérica para a Chave de Aço]{Comparação numérica para a Chave de Aço. A figura ao topo apresenta o Erro Médio por frequência. As demais figuras apresentam a comparação para modos de vibração específicos.}
+% \end{figure}
 
 \section{Teste de Percepção}
 
-Para testar a qualidade do áudio final, um teste A/B foi feito com voluntários. Nesse teste, o voluntário assistia ambas as versões do vídeo (identificadas apenas por A ou B) e deveria responder à pergunta: ``Qual dos dois pareceu mais realista? A ou B?''. O voluntário tinha como opções: ``A'', ``B'' ou ``Não sei''. A \tabref{tab:survey_results} contém o resultado da pesquisa.
+Para testar a qualidade do áudio final, um teste A/B foi feito \footnote{A pesquisa está disponível em \url{https://docs.google.com/forms/d/1qfXssmKug0lh5uQXkot_XjWpjuSap4zJybzXG688XDY/viewform}}. Uma pesquisa foi feita utilizando a plataforma online Google Forms\cite{googleforms}. Nesse teste, o voluntário assistia uma série de pares de vídeos distintos. Enquanto a imagem dos vídeos de cada param era idêntica, o áudio de um deles foi gerado utilizando a abordagem anterior e o do outro foi gerado utilizando a nossa abordagem. Os vídeos de cada par eram identificados apenas por A ou B. O voluntário deveria responder à pergunta: ``Qual dos dois pareceu mais realista: A ou B?''. O voluntário tinha como opções: ``A'', ``B'' ou ``Não sei''.
+
+A pesquisa foi divulgada em listas de e-mail de alunos e docentes de diferentes universidades e também em redes sociais. A \tabref{tab:survey_results} contém o resultado da pesquisa.
+
+Em todos os testes, a maioria dos usuário considerou que o som gerado pelo nosso método era mais realista que ou tão realista quanto o som gerado pelos métodos anteriores. Considerando que o nosso objetivo era apenas acelerar o método, esses resultados excedem as nossas expectativas.
 
 \begin{table}[ht]
 \begin{center}
@@ -175,8 +90,6 @@ Total & & & & 254 respostas
 \end{center}
 \caption{Resultado dos Testes de Percepção}\label{tab:survey_results}
 \end{table}
-
-Em todos os testes, a maioria dos usuário considerou que o som gerado pelo nosso método era mais realista que ou tão realista quanto o som gerado pelos métodos anteriores. Considerando que o nosso objetivo era apenas acelerar o método, esses resultados excedem as nossas expectativas.
 
 
 

@@ -1,8 +1,14 @@
 %!TEX root = ../main.tex
 \chapter{Conclusão}
 
-Nesse trabalho nós estudamos o estado-da-arte de Síntese de Áudio Realístico. Nós deselvovemos um método para aproximar a solução da Equação de Helmholtz em GPU e comparamos com as soluções anteriores obtendo resultados bastante satisfatórios. Mais importante do que esses resultados é a fundamentação dos conceitos envolvidos. O conhecimentos de equações diferenciais e de métodos eficientes de solução pode ser utilizado nas mais diversas áreas. O mesmo pode ser dito para a  experiência com o uso de GPUs.
+Nesse trabalho nós estudamos o problema de Síntese de Áudio Realístico para aplicações virtuais. Exploramos o estado-da-arte das técnicas de síntese, considerando a diferença entre os Métodos por Amostragem e os Métodos por Simulação Física.
+
+Nós deselvovemos um método eficiente para aproximar a solução da Equação de Helmholtz em GPU. Utilizamos esse método para acelerar uma parte do pipeline de síntese. Comparamos a nossa implementação com implementação anteriores obtendo resultados bastante satisfatórios: O nosso método foi mais de $30\times$ mais rápido que os métodos anteriores. Além disso, fizemos um teste A/B com voluntários que mostrou que a qualidade do áudio gerado foi melhor.
+
+Acreditamos que essa contribuição representa um passo importante para a área. Os métodos de síntese por modelagem física ainda são limitados pelo seu custo computacional. O uso de algoritmos mais eficientes que explorem a paralelização em GPU pode ser a chave para popularizar aplicações que utilizem esses métodos. Acreditamos que isso contribuirá para a criação de aplicações audiovisuais que propriciem experiências mais imersivas e satisfatórias para os usuários.
+
+Mais importante do que os resultados apresentados é a própria fundamentação dos conceitos envolvidos. O conhecimento de equações diferenciais, de métodos eficientes de solução e de paralelização em GPU pode ser utilizado nas mais diversas áreas.
 
 \section{Trabalhos futuros}
 
-Ainda existem muitas limitações com os métodos do estado-da-arte. Os métodos ainda tem um alto custo computacional em tempo de pré-processamento e também em tempo de execução. Isso inviabiliza a simulação de objetos maiores e também inviabiliza a simulação em tempo real. Trabalhos futuros podem tentar explorar técnicas de discretização adaptativas para lidar com domínios maiores e também pode tentar explorar técnicas de GPU para paralelizar as demais etapas do pipeline.
+Ainda existem muitas limitações com os métodos do estado-da-arte. O custo computacional da fase de pré-processamento e também da fase de tempo de execução são consideravelmente altos. Isso inviabiliza a simulação de objetos maiores e também dificulta a simulação em tempo real em computadores com configurações modestas. Trabalhos futuros podem tentar explorar técnicas de discretização adaptativas para lidar com domínios maiores e também pode tentar explorar técnicas de GPU para paralelizar as demais etapas do pipeline.

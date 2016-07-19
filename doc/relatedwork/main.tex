@@ -1,9 +1,18 @@
 %!TEX root = ../main.tex
-\chapter{Trabalhos Relacionados}
+\chapter{Síntese de Áudio Realístico}
 
-O trabalhos da área podem ser divididos em Métodos Physically-Based e Métodos Data-Driven.
+O problema de Síntese de Aúdio Realístico pode ser definido da seguinte maneira: Dada a descrição de uma cena, como podemos sintetizar o áudio correspondente? Para entedermos melhor esse definição, precisamos entender o que seria a descrição de uma cena e também o que se entende por aúdio correspondente.
 
-\input{relatedwork/analytical}
+A descrição da cena é o conjunto de informações necessárias para descrever a composição e o estado dos objetos presentes. A descrição da cena pode ser dada de modo explícito ou implícito. Uma descrição explícita possui todos os parâmetros dos objetos. Um exemplo seria: ``No tempo $t$, a cena contém um prato de cerâmica está na posição $p_a$ com velocidade $v_a$ e uma chate de aço na posição $p_b$ com velocidade $v_b$''. Uma descrição implícita é aquela que não apresenta os parâmetros explicitamente. Um exemplo de descrição implícita seria um vídeo com os objetos. Nesse caso, o vídeo deveria ser processado para que a descrição explícita fosse extraída.
+
+Dizemos que um áudio satisfaz a descrição da cena (ou que ele corresponde à descrição da cena) se ele é suficientemente parecido com o áudio que seria produzido se a cena fosse simulada no mundo real. O grau de fidelidade varia de acordo com a aplicação. Em aplicações de Engenharia, por exemplo, pode-se exigir um alto grau de fidelidade. Em aplicações lúdicas, o grau de fidelidade pode ser menor. No nosso caso, consideramos que o áudio é fiel o suficiente se um humano o julga plausível. Estudos mostram que humanos são particulamente sensíveis à mudanças drásticas no timbre (e.g.: som metálico gerado por um objeto de madeira e vice-versa) e intensidade (e.g.: som muito alto para uma ação fraca e vice-versa) e à falhas de sincronização\cite{bonebright2012were}.
+
+Uma boa solução para problema deve ser capaz de gerar áudio que satisfaça a descrição da cena. A solução também deve ser de baixo custo e também deve exigir pouco tempo.
+
+O trabalhos da área podem ser divididos em Métodos por Modelagem Física e Métodos por Amostragem.
+
 \input{relatedwork/datadriven}
+\input{relatedwork/analytical}
+
 
 

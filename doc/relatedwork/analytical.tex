@@ -1,18 +1,19 @@
-\section{Métodos Physically-Based}
+\section{Métodos por Modelagem Física}
 
-Os Métodos Physically-Based, ou métodos baseados em física, são aqueles que tentam, através das propriedades físicas dos materiais, sintetizer o som adequado. Em outras áreas, como Engenharia Mecânica ou Engenharia Aeronáutica, o estudo da radiação acústica gerada por materiais já é uma prática comum \cite{pierce1981acoustics}. No entanto, os métodos utilizados nessas áreas costumam considerar apenas cenas estáticas, o que inviabiliza a interação com o usuário.
+Os Métodos Physically-Based, ou Métodos por Modelagem Física, são aqueles que tentam, através das propriedades físicas dos materiais, sintetizer o som adequado. Em outras áreas, como Engenharia Mecânica ou Engenharia Aeronáutica, o estudo da radiação acústica gerada por materiais já é uma prática comum \cite{pierce1981acoustics}. No entanto, os métodos utilizados nessas áreas costumam considerar apenas cenas estáticas, o que inviabiliza a interação com o usuário.
 
-O trabalho de \cite{van2001foleyautomatic} foi o primeiro a considerar o uso de métodos physically-based em aplicações interativas. Os autores desenvolveram um processo simples para aplicações interativas: Em tempo de pré-processamento, os modos de vibração do objetos eram calculados e armazenados. Durante a execução, os objetos eram simulados e o estado $q_i(t)$ de cada modo de vibração era considerado utilizando a equação \eqref{linear_modal_eqn}. O som final gerado pelo objeto era simplesmente a soma dos modos de vibração:
+Essa classe de métodos normalmente opera apenas com descrições explicitas das cenas. Os dados apresentados na descrição das cenas normalmente são os seguintes:
 
-\begin{equation}
-	s(t) = \sum_i q_i(t)
-\end{equation}
+\begin{description}
+	\item[Geometria] A Geometria de um objeto é a descrição de sua forma. Essa descrição normalmente é dada como um conjunto de triângulos que formam o objeto.
+	\item[Materiais] O Material de um objeto é o conjunto de parâmetros físicos dos materiais que o compõe. Isso inclui parâmetros como densidade, Módulo de Young, Razão de Poisson e etc. Normalmente esses valores são retirados de tabelas padrão que descrevem materiais como cerâmica, vidro e etc.
+	\item[Condições iniciais] As condições iniciais definem parâmetros como posição e velocidades iniciais dos objetos.
+	\item[Entrada do Usuário] A entrada do usuário que normalmente é mapeada como uma força externa no ambiente virtual.
+\end{description}
 
-Essa abordagem conseguia gerar som plausível em tempo real, mas muitas nuances do som eram ignoradas. A distância e o ângulo do objeto em relação ao ouvinte, por exemplo, têm uma grande influência no som final. O trabalho de \cite{james2006precomputed} então introduziu o uso de Radiação Acústica no processo de síntese (Ver \figref{fig:pipeline_overview}). Nesse trabalho, a função de Radiação Acústica $T_i(u)$ era calculada para cada modo de vibração do objeto. Em tempo de execução, a posição do objeto em relação ao ouvinte era considerada. Com essa abordagem, o som final consideraria os modos de vibração ponderados pela radiação acústica: 
+Os métodos baseados em modelagem física apresentam diversas vantagens quando comparados aos métodos baseados em amostragens. Se o modelo utilizado for bom o suficiente, o aúdio gerado sempre será satisfatório. Além disso, os método pode ser facilmente automatizados e executados sem a necessidade de mão de obra especializada, o que reduz o custo e o tempo dessa classe de técnicas. Na prática, os modelos desenvolvidos ainda apresentam limitações. Muitos deles ainda são computacionalmente caros e exigem hardware especializado. Por tal razão, os sons sintetizados por esses métodos ainda não apresentam a mesma qualidade quando comparados aos métodos de amostragem.
 
-\begin{equation}
-	s(t) = \sum_i |T_i(u_{ouvinte}-u_{objeto})| q_i(t)
-\end{equation}
+\subsection{Pipeline de Síntese}
 
 \begin{figure}[ht]
 \begin{subfigure}{\textwidth}
@@ -29,8 +30,44 @@ Essa abordagem conseguia gerar som plausível em tempo real, mas muitas nuances 
 \label{fig:pipeline_overview}
 \end{figure}
 
-O pipeline desenvolvido em \cite{james2006precomputed} é utilizado como base para os trabalhos mais recentes na área.\cite{zheng2010rigid}, por exemplo, estendeu o modelo para também sintetizar o som de fraturas.
+O pipeline mais comum nessa área é apresentado na \figref{fig:pipeline_overview}. Ele foi introduzido no trabalho de \cite{james2006precomputed} e foi utilizado em diversos trabalhos. Esse pipeline é dividido em duas fases: a Fase de Pré-Processamento e a Fase de Tempo de Execução. A primeira acontece antes da interação com o usuário. Nesta fase, alguns dados são pré-computados para acelerar a segunda fase. A Fase de Tempo de Execução acontece durante a interação com usuário. Essa divisão é importante pois a segunda fase é crítica e, em aplicações interativas, deve rodar em tempo real.
+
+Na fase de pré-processamento a geometria e os materiais do objetos presentes na cena são utilizados para calcular os modos de vibração seus modos de vibração $v_i$ e as frequências naturais do objeto $\omega_i$. Para fazer isso, o método de Análise Modal é utilizado.
+
+Para cada modo de vibração de um objeto, utiliza-se então de um Solucionador da Equação de Helmholtz (Helmholtz Solver) para calcular a Radiação Acústica correnspodente $T_i(u)$ gerada.
+
+Durante a fase de tempo de execução, as condições iniciais da cena, o material e a geometria dos objetos e a entrada do usuário são utilizadas para simular o comportamento e as colisões dos objetos. Em cada frame, a força $f_{ext}$ aplicada em cada objeto é calculada.
+
+A Matriz Espectral dos objetos $V$ são então utilizadas para mapear as forças no modos de vibração $V^\intercal f_{ext}$. A vibração $q_i(t)$ em cada frequência então é então calculada com a equação \eqref{linear_modal_eqn} usando um Filtro IIR:
+
+\begin{equation}
+	v_i^\intercal f_{ext} = \ddot{q_i} + (\alpha + \beta\omega_i^2)\dot{q_i} + \omega_i^2q_{i}
+\end{equation}
+
+O som final $s(t)$ é então computado utilizando os modos de vibração ponderados pela radiação acústica:
+
+\begin{equation}
+	s(t) = \sum_i |T_i(u_{ouvinte}-u_{objeto})| q_i(t)
+\end{equation}
+
+\subsection{Trabalhos Relacionados}
+
+
+O trabalho de \cite{van2001foleyautomatic} foi o primeiro a considerar o uso de métodos por modelagem física em aplicações interativas. Os autores desenvolveram um processo simples para aplicações interativas: Em tempo de pré-processamento, os modos de vibração do objetos eram calculados e armazenados. Durante a execução, os objetos eram simulados e o estado $q_i(t)$ de cada modo de vibração era considerado utilizando a equação \eqref{linear_modal_eqn}. O som final gerado pelo objeto era simplesmente a soma dos modos de vibração:
+
+\begin{equation}
+	s(t) = \sum_i q_i(t)
+\end{equation}
+
+Essa abordagem conseguia gerar som plausível em tempo real, mas muitas nuances do som eram ignoradas. A distância e o ângulo do objeto em relação ao ouvinte, por exemplo, têm uma grande influência no som final. O trabalho de \cite{james2006precomputed} então introduziu o uso de Radiação Acústica no processo de síntese (Ver \figref{fig:pipeline_overview}) Nesse trabalho, a função de Radiação Acústica $T_i(u)$ era calculada para cada modo de vibração do objeto. Em tempo de execução, a posição do objeto em relação ao ouvinte era considerada. Com essa abordagem, o som final consideraria os modos de vibração ponderados pela radiação acústica: 
+
+\begin{equation}
+	s(t) = \sum_i |T_i(u_{ouvinte}-u_{objeto})| q_i(t)
+\end{equation}
+
+O pipeline desenvolvido em \cite{james2006precomputed} é utilizado como base para os trabalhos mais recentes na área. \cite{zheng2010rigid}, por exemplo, estendeu o modelo para também sintetizar o som de fraturas.
 
 \cite{zheng2011toward} melhorou o modelo de contato utilizado na simulação do objeto. A qualidade do som final depende muito das forças de contato $f_{ext}$. Para capturar melhor as nuances do contato, eles passaram a utilizar um simulador numericamente estável \cite{kaufman2008staggered} e também aumentaram a resolução da simulação para a resolução acústica (44KHz). Como resultado, a qualidade do áudio foi drasticamente melhorada mas o tempo necessário para realizar a síntese também aumentou.
 
 Para realizar a síntese, os modos de vibração tem que ser utilizados em tempo de execução. Para objetos maiores, a quantidade de memória necessária para armazená-los pode inviabilizar a simulação. Em \cite{langlois2014eigenmode} um método foi desenvolvido para comprimir os modos de vibração. Isso possibilitou utilizar objetos maiores e mais detalhados sem impacto no tempo de síntese. 
+

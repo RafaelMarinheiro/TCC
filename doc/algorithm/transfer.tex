@@ -70,7 +70,7 @@ Os termos $M_n^m$ são chamados de \emph{Coeficientes Multipolares}. Eles podem 
 	M_n^m = ik \int_{\Gamma}\left[ R_n^{-m}(v - u_0)\frac{\partial T}{\partial n}(v) -  \frac{\partial R_n^{-m}}{\partial n}(v - u_0)T(v)\right]d\Gamma_v
 \end{equation}
 
-Esses termos podem ser utilizados para calcular a Radiação Acústica $T(u)$ em tempo de execução utilizando a fórmula \eqref{eq:multipole_expansion}. Na nossa implementação, os coeficientes são calculados em paralelo na GPU. Nós utilizamos as recursões apresentada em \cite{press2007numerical} para calcular a Funções Esféricas. A \figref{fig:multipole_comparison} apresenta uma comparação entre o Ground Truth da Radiação Acústica e o valor aproximado com a Expansão Multipolar.  
+Esses termos podem ser utilizados para calcular a Radiação Acústica $T(u)$ em tempo de execução utilizando a fórmula \eqref{eq:multipole_expansion}. Na nossa implementação, os coeficientes são calculados em paralelo na GPU. Nós utilizamos as recursões apresentada em \cite{press2007numerical} para calcular a Funções Esféricas. A \figref{fig:multipole_comparison} apresenta uma comparação entre o valor calculado da Radiação Acústica e o valor aproximado com a Expansão Multipolar.  
 
 
 \begin{figure}[ht]

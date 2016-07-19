@@ -1,6 +1,8 @@
 %!TEX root = ../main.tex
 \chapter{Algoritmo e Implementação}
 
+Entre todos os passos do pipeline apresentado no capítulo anterior, o mais lento é o passo no qual a Radiação Acústica é calculada. Por tais razões, decidimos explorar técnicas de paralelização para implementá-lo em GPU.
+
 \section {Discretização e Solução da Equação da Onda}
 
 A equação da onda \eqref{acousticequation} é a equação governante da pressão acústica $\rho(u, t)$. Na nossa solução, no entanto, gostaríamos de especificar as condições de contorno em termo da velocidade das partículas. Para fazer isso, podemos separar a equação em um sistema de equações diferenciais:

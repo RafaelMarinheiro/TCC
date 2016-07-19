@@ -1,5 +1,18 @@
 \section{Vibração de Corpos Rígidos}
 
+O som proveniente de objetos é geralmente principalmente por conta de sua vibração. Ao vibrar, o objeto movimenta o meio ao seu redor, criando ondas sonoras que serão propagadas. Podemos observar essa propriedade em instrumentos musicais: O prato de bateria, por exemplo, começa a vibrar ao ser atingido por uma baqueta, produzindo seu som característico. O corpo de um violão vibra quando suas cordas são tocadas, criando o som na frequência das cordas. Embora não consigamos observar a vibração a olho nu, é possível fazê-lo com câmeras especializadas (Ver \figref{fig:vibrating_cymbal}).
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.7\textwidth]{mathematicalbackground/cymbal.jpg}
+	\caption[Vibração de um prato de bateria.]{Vibração de um prato de bateria. O som produzido é gerado por conta dessa vibração\footnotemark}
+	\label{fig:vibrating_cymbal}
+\end{figure}
+
+\footnotetext{Fonte: \url{https://i.ytimg.com/vi/kpoanOlb3-w/maxresdefault.jpg}. Acessado em 18 de Julho de 2016.}
+
+Para entendermos melhor o comportamento da vibração de objetos, estudaremos o Modelo Elastodinâmico. 
+
 \subsection{Modelo Elastodinâmico}
 O modelo elastodinâmico \cite{shabana2012theory} é um dos modelos mais utilizados no estudo de vibrações. Esse modelo é amplamente utilizado em áreas como Engenharia Civil, Engenharia Mecânica, entre outras. 
 
@@ -240,7 +253,7 @@ Em \eqref{afterexpansion} expandimos o termo de $\dot{q}$. Em \eqref{aftermodesu
 Note que na equação final, todas as matrizes associadas aos termos $q$, $\dot{q}$ e $\ddot{q}$ são matrizes diagonais. Por tal razão, a equação diferencial multidimensional pode ser decomposta em várias equações diferenciais unidimensionais independentes:
 
 \begin{equation}
-	v_i^\intercal f_{ext} = \ddot{q_i} + (\alpha + \beta\omega_i^2)\dot{q_i} + \omega_i^2q_{}
+	v_i^\intercal f_{ext} = \ddot{q_i} + (\alpha + \beta\omega_i^2)\dot{q_i} + \omega_i^2q_{i}
 	\label{linear_modal_eqn}
 \end{equation}
 

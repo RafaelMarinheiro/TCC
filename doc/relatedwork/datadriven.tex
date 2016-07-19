@@ -1,5 +1,5 @@
-\section{Métodos Data-Driven}
-Métodos Data-Driven ou métodos orientados à amostras são métodos que utilizam amostras de sons como entrada para o algoritmo de síntese. Um procedimento comum nessa classe de métodos é a extração de características das amostras originais e a extrapolação dessas características na etapa de síntese.
+\section{Métodos por Amostragem}
+Métodos Data-Driven ou Métodos por Amostragem são métodos que utilizam amostras sonoras como entrada para o algoritmo de síntese. As amostras sonoras normalmente são obtidas por artistas de Foley. Essas amostras comumente passar por uma etapa de pós-processamento antes de serem utilizadas. Essa etapa de pós-processamento normalmente consiste de métodos de extração e extrapolação de características para tentar adaptar o som da amostra para a cena.
 
 O trabalho de \cite{lloyd2011sound}, por exemplo, faz uma análise nas amostras sonoras para identificar as frequências dominantes. As frequências dominantes assemelham-se às frequências naturais do objeto. Durante o tempo de execução, as frequências dominantes são somadas poderando cada uma com pesos gerados aleatoriamente. Os sons gerados não são fisicamente plausíveis e também não podem ser estendidos de maneira adequada para objetos distintos. Porém ela é uma abordagem computacionalmente barata que oferece um certo grau de dinamismo na acústica do ambiente virtual. Por tais razões, ela é ideal para ser incorporada à jogos em tempo real.
 
@@ -7,3 +7,4 @@ Os trabalhos de \cite{ren2013example} e de \cite{sterling2016interactive} utiliz
 
 Redes neurais também são comuns na área de síntese de aúdio. Embora o seu uso seja mais comum na área de síntese de fala \cite{rahim1993use, ling2015deep}, trabalhos recentes tem explorado técnicas para gerar sons de objetos. O trabalho de \cite{visualIndicatedSounds} utiliza Deep Learning para extrair características do áudio de amostras de vídeos. Com essas características, os autores conseguem sintetizar áudio plausível para outras cenas sem áudio.
 
+Os métodos por amostragem tem diversas vantagens. Como amostras reais de aúdio são utilizadas, o som gerado normalmente tem boa qualidade. Esse tipo de método costuma ser computacionalmente barato, o que torna fácil a sua integração em diversas aplicações. As suas desvantagens também são aparentes: embora o áudio seja de boa qualidade, ele pode ser incompatível com a cena apresentada. Em aplicações dinâmicas, esse tipo de método tem problema para adaptar o som, o que pode criar experiências acústicas repetitivas.
